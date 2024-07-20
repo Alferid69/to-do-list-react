@@ -1,9 +1,11 @@
-import { useState } from "react";
-import "./bootstrap.min.css";
-import "./bootstrap.min.css.map";
+import { useEffect, useRef, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 export default function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(function(){
+    const items = localStorage.getItem('todos');
+    return JSON.parse(items)
+  });
 
   function handleAddTodos(newToDo) {
     setTodos((todos) => [...todos, newToDo]);
@@ -19,12 +21,16 @@ export default function App() {
     if(comfirmDelete) setTodos([]);
   }
 
+  useEffect(function(){
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
+
   return (
     <div className="container mt-5">
       <div className="col-12 bg-secondary p-3">
         <Form onAddTodo={handleAddTodos} />
       </div>
-      {todos.length < 1 ? null : (
+      {todos === null || todos.length < 1 ? null : (
         <div className="bg-success mt-3">
           <ToDoLists
             todos={todos}
@@ -39,6 +45,8 @@ export default function App() {
 
 function Form({ onAddTodo }) {
   const [text, setText] = useState("");
+  const inputEl = useRef(null)
+
   const newToDo = {
     id: crypto.randomUUID(),
     text,
@@ -54,6 +62,10 @@ function Form({ onAddTodo }) {
     setText("");
   }
 
+  useEffect(function (){
+    inputEl.current.focus();
+  }, [])
+
   return (
     <form
       className="form d-flex align-items-center flex-column"
@@ -66,6 +78,7 @@ function Form({ onAddTodo }) {
           className="form-control"
           value={text}
           onChange={handleChange}
+          ref={inputEl}
           required
         />
       </div>
