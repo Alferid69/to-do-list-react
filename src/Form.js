@@ -27,27 +27,29 @@ export function Form() {
   }, []);
 
   return (
-    <div className="col-12 bg-secondary p-3">
-
-    <form
-      className="form d-flex align-items-center flex-column"
-      onSubmit={handleSubmit}
+    <div className="formcont col-12 bg-secondary p-3 pb-0">
+      <form
+        className="form d-flex align-items-center flex-column"
+        onSubmit={handleSubmit}
       >
-      <h1>Welcome to ToDo List App</h1>
-      <div className="col-7 m-4">
-        <input
-          type="text"
-          className="form-control"
-          value={text}
-          onChange={handleChange}
-          ref={inputEl}
-          required
+        <h1>Welcome to ToDo List App</h1>
+        <div className="col-7 m-4">
+          <input
+            type="text"
+            className="form-control"
+            value={text}
+            onChange={handleChange}
+            ref={inputEl}
+            required
           />
-      </div>
-      <div className="col-4">
-        <button className="form-control bg-primary text-light">Add</button>
-      </div>
-    </form>
-          </div>
+        </div>
+        <div className="col-4">
+          <button className="form-control bg-primary text-light">Add</button>
+        </div>
+      </form>
+      <p className="text-center mt-2">
+        &copy; {new Date().getFullYear()} Alferid Hassen. All rights reserved.
+      </p>
+    </div>
   );
 }

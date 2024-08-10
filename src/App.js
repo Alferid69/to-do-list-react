@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToDoLists } from "./ToDoLists";
 import { Form } from "./Form";
-import { Footer } from "./Footer";
 
 export const TodoContext = createContext();
 
@@ -45,7 +44,7 @@ export default function App() {
         onReset: handleReset,
       }}
     >
-      <div className="container pt-2">
+      <div className="container pt-2 h-100">
         <Form onAddTodo={handleAddTodos} />
         {todos === null || todos.length < 1 ? null : (
           <ToDoLists
@@ -54,7 +53,6 @@ export default function App() {
             onReset={handleReset}
           />
         )}
-        <Footer />
       </div>
     </TodoContext.Provider>
   );
